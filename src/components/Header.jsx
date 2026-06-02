@@ -3,7 +3,7 @@ import { IMAGES, NAV_LINKS } from "../data/siteData";
 import { useScrollHeader } from "../hooks/useScrollHeader";
 
 export default function Header() {
-  const scrolled = useScrollHeader();
+  const scrolled = useScrollHeader(80);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -18,14 +18,14 @@ export default function Header() {
           <ul className="nav-desktop">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a className="link-hover-line" href={link.href}>
+                <a className="link-hover-line nav-link" href={link.href}>
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <a className="link-hover-line nav-desktop-cta" href="#contact">
+        <a className="nav-pill-cta" href="#contact">
           Book a consultation
         </a>
         <button
@@ -47,7 +47,7 @@ export default function Header() {
             {link.label}
           </a>
         ))}
-        <a className="link-hover-line" href="#contact" onClick={closeMenu}>
+        <a className="nav-pill-cta nav-pill-cta--solid" href="#contact" onClick={closeMenu}>
           Book a consultation
         </a>
       </nav>

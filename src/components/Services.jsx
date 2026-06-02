@@ -5,23 +5,37 @@ export default function Services() {
   return (
     <section id="services" className="services">
       <Reveal className="container">
-        <div className="section-header">
-          <p className="eyebrow">What we do</p>
-          <h2>Our services</h2>
-          <p>Full-spectrum representation for residential, investment, and lifestyle moves.</p>
-        </div>
-        <div className="services-grid">
-          {SERVICES.map((service) => (
-            <article key={service.title} className="service-card">
-              <h3>{service.title}</h3>
-              <p>{service.intro}</p>
-              <ul>
-                {service.bullets.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div className="services-layout">
+          <div className="services-intro">
+            <p className="eyebrow">What we do</p>
+            <h2 className="services-headline">
+              <span className="services-headline__primary">Our services,</span>
+              <span className="services-headline__muted">Elevated.</span>
+            </h2>
+            <p className="services-lead">
+              Full-spectrum representation for residential, investment, and lifestyle moves.
+            </p>
+            <a className="services-cta" href="#contact">
+              Book a consultation
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div className="services-list">
+            <p className="services-list__label">Services:</p>
+            <ol className="services-steps">
+              {SERVICES.map((service, index) => (
+                <li key={service.title}>
+                  <span className="services-steps__num">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p>
+                    <strong>{service.title}.</strong> {service.intro}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </Reveal>
     </section>

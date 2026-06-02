@@ -1,11 +1,12 @@
 import { CONTACT, IMAGES, SOCIAL } from "../data/siteData";
+import Reveal from "./Reveal";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="site-footer">
-      <div className="container footer-grid">
+      <Reveal className="container footer-grid">
         <div>
           <img src={IMAGES.logo} alt="Sing Real Estate Team" width="137" height="48" />
           <p>Real Estate. Legacy. Conscious Living.</p>
@@ -31,7 +32,7 @@ export default function Footer() {
         <div>
           <img src={IMAGES.belair} alt="Bel-Air Realty Group" width="180" height="48" />
         </div>
-      </div>
+      </Reveal>
       <div className="container footer-bottom">
         <p>&copy; {year} Sing Real Estate Team. All rights reserved.</p>
       </div>

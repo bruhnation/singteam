@@ -1,49 +1,91 @@
-import { HERO_SLIDES } from "../data/siteData";
-import { useCarousel } from "../hooks/useCarousel";
+import { useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+
+const easeOut = [0.25, 0.1, 0.25, 1];
+const heroImage = "/images/hero-background.jpg";
 
 export default function Hero() {
-  const { index, goTo } = useCarousel(HERO_SLIDES.length);
+  const heroRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const textY = useTransform(scrollYProgress, [0, 0.46], [0, 300]);
+  const textAlpha = useTransform(scrollYProgress, [0, 0.16, 0.38], [1, 0.45, 0]);
+  const subheadAlpha = useTransform(scrollYProgress, [0, 0.16, 0.38], [0.62, 0.28, 0]);
+  const headingColor = useMotionTemplate`rgba(3, 5, 7, ${textAlpha})`;
+  const subheadColor = useMotionTemplate`rgba(3, 5, 7, ${subheadAlpha})`;
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.07]);
+  const textStyle = reducedMotion ? undefined : { y: textY };
+  const imageStyle = reducedMotion ? undefined : { scale: imageScale };
 
   return (
-    <section className="hero" aria-label="Featured properties">
-      <div className="hero-slides">
-        {HERO_SLIDES.map((slide, i) => (
-          <div key={slide.src} className={`hero-slide ${i === index ? "active" : ""}`}>
-            <img
-              src={slide.src}
-              alt={slide.alt}
-              fetchPriority={i === 0 ? "high" : undefined}
-            />
+    <section
+      ref={heroRef}
+      className={`hero ${reducedMotion ? "hero--reduced" : ""}`}
+      aria-label="Sing Real Estate — find your dream home"
+    >
+      <div className="hero__sticky">
+        <motion.img
+          className="hero__image"
+          src={heroImage}
+          alt="Vancouver skyline at dusk"
+          width={2400}
+          height={1600}
+          fetchPriority="high"
+          decoding="sync"
+          style={imageStyle}
+        />
+        <motion.div className="hero__content" style={textStyle}>
+          <div className="hero__copy">
+            <motion.h1
+              style={reducedMotion ? undefined : { color: headingColor }}
+              initial={reducedMotion ? false : { y: 18 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.5, ease: easeOut }}
+            >
+              Find Your Dream Home
+            </motion.h1>
+            <motion.p
+              className="hero__subhead"
+              style={reducedMotion ? undefined : { color: subheadColor }}
+              initial={reducedMotion ? false : { y: 14 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.45, delay: 0.06, ease: easeOut }}
+            >
+              Expert agents. <strong>Real guidance.</strong> A clear path to find what&apos;s next.
+            </motion.p>
+            <motion.a
+              className="hero__cta"
+              href="#listings"
+              style={reducedMotion ? undefined : { opacity: textAlpha }}
+              initial={reducedMotion ? false : { y: 12 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.4, delay: 0.12, ease: easeOut }}
+            >
+              View Listings
+              <span aria-hidden="true">→</span>
+            </motion.a>
           </div>
-        ))}
-      </div>
-      <div className="hero-overlay" aria-hidden="true" />
-      <div className="container hero-content">
-        <p className="eyebrow hero-eyebrow">Metro Vancouver · Bel-Air Realty Group</p>
-        <h1>Find your dream home</h1>
-        <p className="hero-lead">
-          Real estate. Legacy. Conscious living. We guide buyers, sellers, and investors with
-          strategy, integrity, and over a decade of top-producing experience.
-        </p>
-        <div className="hero-actions">
-          <a className="link-hover-line" href="#listings">
-            View listings
-          </a>
-          <a className="link-hover-line" href="#contact">
-            Get in touch
-          </a>
-        </div>
-      </div>
-      <div className="hero-dots" aria-hidden="true">
-        {HERO_SLIDES.map((slide, i) => (
-          <button
-            key={slide.src}
-            type="button"
-            className={i === index ? "active" : ""}
-            aria-label={`Slide ${i + 1}`}
-            onClick={() => goTo(i)}
-          />
-        ))}
+        </motion.div>
+        <motion.img
+          className="hero__foreground"
+          src={heroImage}
+          alt=""
+          width={2400}
+          height={1600}
+          decoding="async"
+          aria-hidden="true"
+          style={imageStyle}
+        />
       </div>
     </section>
   );

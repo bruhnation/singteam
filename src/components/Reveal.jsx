@@ -1,30 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
+const revealEase = [0.22, 1, 0.36, 1];
 
 export default function Reveal({ children, className = "" }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const reducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+  if (reducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
-    <div ref={ref} className={`reveal ${visible ? "visible" : ""} ${className}`.trim()}>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: revealEase }}
+      viewport={{ once: true, amount: 0.2 }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }

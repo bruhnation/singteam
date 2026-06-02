@@ -16,28 +16,34 @@ export default function Listings() {
         <div className="listings-grid">
           {LISTINGS.map((listing) => (
             <article key={listing.url} className="listing-card">
-              <a href={listing.url} target="_blank" rel="noopener noreferrer">
+              <a
+                className="listing-card__link"
+                href={listing.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View details for ${listing.title}`}
+              >
                 <img src={listing.image} alt={listing.title} loading="lazy" />
-              </a>
-              <div className="listing-body">
-                <p className="eyebrow">{listing.area}</p>
-                <h3>{listing.title}</h3>
-                <p className="listing-price">{listing.price}</p>
-                <div className="listing-meta">
-                  {listing.meta.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
+                <div className="listing-card__overlay">
+                  <div className="listing-card__topline">
+                    <span>{listing.area}</span>
+                    <strong>{listing.price}</strong>
+                  </div>
+                  <div className="listing-card__content">
+                    <h3>{listing.title}</h3>
+                    <div className="listing-meta">
+                      {listing.meta.map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </div>
+                    <p className="listing-description">{listing.description}</p>
+                    <span className="listing-card__action">
+                      View details
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
                 </div>
-                <p>{listing.description}</p>
-                <a
-                  className="btn btn-dark"
-                  href={listing.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View details
-                </a>
-              </div>
+              </a>
             </article>
           ))}
         </div>
