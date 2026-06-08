@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { IMAGES, NAV_LINKS } from "../data/siteData";
 import { useScrollHeader } from "../hooks/useScrollHeader";

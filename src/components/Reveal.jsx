@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useReducedMotion } from "framer-motion";
 
 const revealEase = [0.22, 1, 0.36, 1];

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { CONTACT } from "../data/siteData";
 import Reveal from "./Reveal";

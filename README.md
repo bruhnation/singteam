@@ -1,44 +1,39 @@
 # Sing Real Estate Team — Website
 
-React + CSS rebuild of [singrealestateteam.ca](https://www.singrealestateteam.ca), using [Vite](https://vite.dev) for development and production builds.
+React + CSS rebuild of [singrealestateteam.ca](https://www.singrealestateteam.ca), using [Next.js 16](https://nextjs.org) with the App Router.
 
 ## Stack
 
+- **Next.js 16** — App Router (`src/app/`)
 - **React** — UI components (`src/components/`)
-- **CSS** — global styles in `src/index.css` (same design as before)
-- **Vite** — dev server and bundler (not Python)
+- **CSS** — global styles in `src/app/globals.css`
+- **Framer Motion** — hero scroll effects and reveal animations
 
 ## Run locally
 
 ```powershell
-cd C:\Users\diego\desktop\git\singteam
+cd C:\Users\User\Desktop\Git\singteam
 npm install
 npm run dev
 ```
 
-Open the URL Vite prints (usually http://localhost:5173).
+Open http://localhost:3000.
 
 ## Build for production
 
 ```powershell
 npm run build
-npm run preview
+npm run start
 ```
 
-Deploy the `dist/` folder to Vercel, Netlify, or GitHub Pages.
+Deploy to Vercel for the best Next.js experience, or any platform that supports Node.js.
 
 ## Project layout
 
 ```
 src/
+  app/          layout, page, globals.css
   components/   Header, Hero, Listings, etc.
   data/         Listings, services, contact copy
-  hooks/        Scroll header, hero carousel
-  index.css     All styles
-  App.jsx       Page layout
-  main.jsx      React entry point
+  hooks/        Scroll header, carousel helpers
 ```
-
-## Note on Python
-
-Python was only ever suggested as `python -m http.server` to preview the old static HTML files. This project uses **`npm run dev`** instead — that is the normal way to run React apps.

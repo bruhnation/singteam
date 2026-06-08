@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 import {
   motion,
@@ -6,9 +8,10 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { HERO_SLIDES } from "../data/siteData";
 
 const easeOut = [0.25, 0.1, 0.25, 1];
-const heroImage = "/images/hero-background.jpg";
+const heroImage = HERO_SLIDES[0].src;
 
 export default function Hero() {
   const heroRef = useRef(null);
