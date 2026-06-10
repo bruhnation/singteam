@@ -1,4 +1,5 @@
-import { Fraunces, Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
 import { IMAGES } from "@/data/siteData";
 import "./globals.css";
 
@@ -9,10 +10,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-fraunces",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -53,12 +54,13 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SmoothScroll />
         {children}
       </body>
     </html>

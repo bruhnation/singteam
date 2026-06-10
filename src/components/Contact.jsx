@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CONTACT } from "../data/siteData";
+import { CONTACT, SOCIAL } from "../data/siteData";
 import Reveal from "./Reveal";
 
 export default function Contact() {
@@ -24,71 +24,106 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact">
+    <section id="contact" className="contact" aria-label="Contact us">
       <Reveal className="container">
-        <div className="section-header">
-          <p className="eyebrow">Get in touch</p>
-          <h2>Connect with us</h2>
-          <p>Visit our office or send a message — we respond promptly.</p>
-        </div>
-        <div className="contact-grid">
-          <div>
-            <div className="contact-info">
-              <h3>Visit our office</h3>
-              <p>
-                {CONTACT.address[0]}
-                <br />
-                {CONTACT.address[1]}
-                <br />
-                {CONTACT.address[2]}
-              </p>
-              <p>
-                <strong>Email</strong>
-                <br />
-                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-              </p>
-              <p>
-                <strong>Phone</strong>
-                <br />
-                <a href={`tel:${CONTACT.phoneTel}`}>{CONTACT.phone}</a>
-              </p>
+        <div className="contact-layout">
+          <div className="contact-side">
+            <p className="eyebrow">Get in touch</p>
+            <h2 className="display contact-title">
+              Say <span className="dim">hello.</span>
+            </h2>
+            <p className="contact-lead">
+              Tell us where you are in the journey — we&apos;ll meet you there. No pressure,
+              ever.
+            </p>
+
+            <dl className="contact-details">
+              <div>
+                <dt>Phone</dt>
+                <dd>
+                  <a className="contact-phone" href={`tel:${CONTACT.phoneTel}`}>
+                    {CONTACT.phone}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>
+                  <a className="link-hover-line" href={`mailto:${CONTACT.email}`}>
+                    {CONTACT.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>Office</dt>
+                <dd>
+                  {CONTACT.address[0]}
+                  <br />
+                  {CONTACT.address[1]}
+                </dd>
+              </div>
+              <div>
+                <dt>Social</dt>
+                <dd className="contact-social">
+                  {SOCIAL.map((link) => (
+                    <a
+                      key={link.href}
+                      className="link-hover-line"
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="name">Name</label>
+              <input id="name" name="name" type="text" required autoComplete="name" placeholder="Your full name" />
             </div>
-            <div className="contact-map" style={{ marginTop: "1.5rem" }}>
-              <iframe
-                title="Sing Real Estate Team office location"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                src={CONTACT.mapUrl}
-                allowFullScreen
+            <div className="field-row">
+              <div className="field">
+                <label htmlFor="email">Email</label>
+                <input id="email" name="email" type="email" required autoComplete="email" placeholder="you@email.com" />
+              </div>
+              <div className="field">
+                <label htmlFor="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="(604) 000-0000" />
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="message">How can we help?</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="Buying, selling, investing, or just exploring…"
               />
             </div>
-          </div>
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <h3>Send a message</h3>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input id="name" name="name" type="text" required autoComplete="name" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input id="email" name="email" type="email" required autoComplete="email" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" autoComplete="tel" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Comment or message</label>
-              <textarea id="message" name="message" required />
-            </div>
-            <button className="btn btn-dark" type="submit">
-              Submit
+            <button className="btn-pill contact-submit" type="submit">
+              Send message
+              <span aria-hidden="true">→</span>
             </button>
-            <p className={`form-success ${submitted ? "visible" : ""}`}>
+            <p className={`form-success ${submitted ? "visible" : ""}`} role="status">
               Your email app should open with your message ready to send. If it did not, email us
               directly at {CONTACT.email}.
             </p>
           </form>
+        </div>
+
+        <div className="contact-map">
+          <iframe
+            title="Sing Real Estate Team office location"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            src={CONTACT.mapUrl}
+            allowFullScreen
+          />
         </div>
       </Reveal>
     </section>
